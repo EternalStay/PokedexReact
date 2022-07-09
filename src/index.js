@@ -1,17 +1,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';
+
+import { POKEMON } from './constantes';
+
+import { SearchPokedex } from './filters.js';
+import { PokemonList } from './pokemon.js'
+
+// ========================================
+
+class Pokedex extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchName: '', 
+        };
+
+        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    }
+
+    handleFilterTextChange(searchName) {
+        this.setState({
+            searchName: searchName, 
+        });
+    }
+
+    render() {
+        return (
+            <div className="container">
+                <h1>Pokédex national</h1>
+                <SearchPokedex searchName={this.state.searchName} onFilterTextChange={this.handleFilterTextChange} />
+                <PokemonList pokemon={this.props.pokemon} searchName={this.state.searchName} />
+            </div>
+        )
+    }
+}
+
+// ========================================
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(<Pokedex pokemon={POKEMON} />);
