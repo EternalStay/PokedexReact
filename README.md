@@ -1,3 +1,8 @@
+=======
+# PokedexReact
+Apprentissage de React via un projet de Pokédex
+
+=======
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
