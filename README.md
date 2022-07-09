@@ -1,75 +1,60 @@
-=======
-# PokedexReact
-Apprentissage de React via un projet de Pokédex
+# Apprentissage de React via un Pokédex
 
-=======
-# Getting Started with Create React App
+> Afin d'apprendre à utiliser *React*, une *bibliothèque JavaScript front-end*, j'ai décidé de me lancer dans un *mini-projet de Pokédex* depuis *juin 2022*.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Ce Pokédex n'a donc pas pour but d'être complet, mais uniquement de mettre en pratique les fonctionnalités présentées sur [la documentation de React](https://fr.reactjs.org/docs/getting-started.html).
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
-### `npm start`
+## Accéder au projet en ligne
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Le projet est disponible à l'adresse suivante :
+- https://eternalstay.github.io/PokedexReact/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Accéder au projet en local
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Afin de lancer le programme en local, il est demandé de suivre les instructions ci-dessous.
 
-### `npm run build`
+### Pré-requis
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Ce qu'il est requis pour lancer le projet : 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- ``npm 5.2+``
+- 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Lancement du programme
 
-### `npm run eject`
+Les étapes pour ouvrir le programme : 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- _Étape 1_: Accéder au projet et ouvrir un terminal
+- _Étape 2_: Lancer la commande `npm start`
+- _Étape 3_: Ouvrir [http://localhost:3000](http://localhost:3000) pour voir le projet
+- Enjoy !
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Fonctionnalités
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Fabriqué avec
 
-## Learn More
+Les ressources utilisées pour développer ce projet sont les suivantes : 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [React](https://fr.reactjs.org/) - Bibliothèque Javascript front-end, au centre du projet
+* [Create React App](https://github.com/facebook/create-react-app) - Boîte à outils React, pour l'environnement du projet
+* [Bootstrap](https://getbootstrap.com/) - Framework CSS, pour le design du projet
+* [Pokékalos](https://www.pokekalos.fr/) - Site d'actualités Pokémon, pour les données du projet
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Versions
 
-### Code Splitting
+**Dernière version stable :** -
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Dernière version :** -
 
-### Analyzing the Bundle Size
+Liste des versions : [Cliquer pour afficher](https://github.com/EternalStay/PokedexReact/tags)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Auteurs
+* [@EternalStay](https://github.com/EternalStay)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Lisez la liste des [contributeurs](https://github.com/EternalStay/PokedexReact/contributors) pour voir qui a aidé au projet !
