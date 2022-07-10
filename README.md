@@ -22,8 +22,8 @@ Afin de lancer le programme en local, il est demandé de suivre les instructions
 
 Ce qu'il est requis pour lancer le projet : 
 
-- ``npm 5.2+``
-- 
+- Node >= 8.10
+- npm >= 5.6
 
 ### Lancement du programme
 
@@ -34,8 +34,6 @@ Les étapes pour ouvrir le programme :
 - _Étape 3_: Ouvrir [http://localhost:3000](http://localhost:3000) pour voir le projet
 - Enjoy !
 
-
-## Fonctionnalités
 
 ## Fabriqué avec
 
