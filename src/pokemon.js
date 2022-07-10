@@ -15,7 +15,6 @@ export class PokemonGeneration extends React.Component {
                 <Pokemon 
                     pokemon={poke} 
                     datas={this.props.datas}
-                    generation={generation} 
                     searchName={searchName} 
                     key={key}
                 />
@@ -52,14 +51,10 @@ export class Pokemon extends React.Component {
         }
 
         return ( 
-            <div className="col-2 text-center" 
-                data-numero={p.numero} 
-                data-generation={p.generation}
-                data-type1={p.types[0]}
-                data-type2={p.types[1] ?? ''}
-            >
+            <div className="col-2 text-center">
                 <div className="border m-1" style={style}>
-                  {p.names.fr}
+                    <div><img className="w-50" loading="lazy" alt={p.names.fr} title={p.names.fr} src={p.sprites.front_default ?? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/0.png'} /></div>
+                    <div>{p.names.fr}</div>
                 </div>
             </div>
         );
@@ -73,8 +68,8 @@ export class PokemonList extends React.Component {
         const searchName = this.props.searchName;
         const datas = this.props.datas;
 
-        this.props.datas.pokemon.forEach((p) => {
-            if (p.generation in pokemonByGeneration === false) {
+        datas.pokemon.forEach((p, index) => {
+            if (!pokemonByGeneration[p.generation]) {
                 pokemonByGeneration[p.generation] = [];
             }
             pokemonByGeneration[p.generation].push(p);

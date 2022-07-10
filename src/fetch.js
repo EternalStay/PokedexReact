@@ -1,3 +1,37 @@
+export let fetchProgress = {
+    countInternal: 0, 
+    countListener: function(val) {}, 
+    set count(val) {
+        this.countInternal = val;
+        this.countListener(val);
+    }, 
+    get count() {
+        return this.countInternal;
+    }, 
+    registerListener: function(listener) {
+        this.countListener = listener;
+    }
+};
+
+export async function fetchNumber() {
+    let numberRequests = 0;
+
+    let urls = [
+        ['https://pokeapi.co/api/v2/language', 1], 
+        ['https://pokeapi.co/api/v2/pokemon', 2], 
+        ['https://pokeapi.co/api/v2/type', 1], 
+    ];
+
+    for (const url of urls) {
+        let response = await fetch(url[0]);
+        let responseJson = await response.json();
+
+        numberRequests += responseJson.count * url[1];
+    }
+
+    return numberRequests;
+}
+
 export async function fetchDatas() {
     return await Promise.all([fetchLanguages(), fetchPokemon(), fetchTypes()]);
 }
@@ -45,22 +79,24 @@ async function fetchPokemon() {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
     const responseJson = await response.json();
 
-    return responseJson.results.map(pokemon => {
-        fetchURL(pokemon.url).then((pokemonData) => {
+    let results = await Promise.all(responseJson.results.map(async (pokemon) => {
+        await fetchURL(pokemon.url).then(async (pokemonData) => {
             pokemon.types = pokemonData.types.map((type) => {
                 return type.type.name;
             });
             pokemon.is_default = pokemonData.is_default;
+            pokemon.sprites = pokemonData.sprites.other.home;
 
-            fetchURL(pokemonData.species.url).then((pokemonSpecies) => {
+            await fetchURL(pokemonData.species.url).then((pokemonSpecies) => {
                 pokemon.names = changeLanguagesArray(pokemonSpecies.names);
-                pokemon.generation = pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', '');
+                pokemon.generation = parseInt(pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', ''));
             });
         });
 
-        //pokemon.details = pokemonData;
         return pokemon;
-    });
+    }));
+
+    return results;
 }
 
 async function fetchLanguages() {
@@ -79,6 +115,9 @@ async function fetchLanguages() {
 async function fetchURL(url) {
     const response = await fetch(url);
     const responseJson = await response.json();
+    
+    fetchProgress.count += 1;
+
     return responseJson;
 }
 
