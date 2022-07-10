@@ -42,7 +42,7 @@ Les ressources utilisées pour développer ce projet sont les suivantes :
 * [React](https://fr.reactjs.org/) - Bibliothèque Javascript front-end, au centre du projet
 * [Create React App](https://github.com/facebook/create-react-app) - Boîte à outils React, pour l'environnement du projet
 * [Bootstrap](https://getbootstrap.com/) - Framework CSS, pour le design du projet
-* [Pokékalos](https://www.pokekalos.fr/) - Site d'actualités Pokémon, pour les données du projet
+* [PokeAPI](https://pokeapi.co/) - API Pokémon, pour les données du projet
 
 ## Versions
 
