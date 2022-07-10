@@ -28,11 +28,11 @@ class Pokedex extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <>
                 <h1>Pokédex national</h1>
                 <SearchPokedex searchName={this.state.searchName} onFilterTextChange={this.handleFilterTextChange} />
                 <PokemonList pokemon={this.props.pokemon} searchName={this.state.searchName} />
-            </div>
+            </>
         )
     }
 }

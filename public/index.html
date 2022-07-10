@@ -24,17 +24,28 @@
     <title>Pokédex - React App</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+      <noscript>You need to enable JavaScript to run this app.</noscript>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 px-4">
+        <a class="navbar-brand" href="#">Pokédex</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPokedex" aria-controls="navbarPokedex" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarPokedex">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Accueil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/EternalStay/PokedexReact/" target="_blank">Source</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+      <div class="container-fluid w-75">
+        <div id="root"></div>
+      </div>
   </body>
 </html>

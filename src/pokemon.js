@@ -15,7 +15,14 @@ export class PokemonGeneration extends React.Component {
         this.props.pokemon.forEach((poke) => {
             let key = safeurl(poke.nom.fr + (poke.forme.fr ? ' ' + poke.forme.fr : ''))
             
-            pokemon.push(<Pokemon pokemon={poke} generation={generation} searchName={searchName} key={key} />);
+            pokemon.push(
+                <Pokemon 
+                    pokemon={poke} 
+                    generation={generation} 
+                    searchName={searchName} 
+                    key={key}
+                />
+            );
         });
 
         return (
@@ -33,15 +40,20 @@ export class Pokemon extends React.Component {
     render() {
         let p = this.props.pokemon;
         let style = {
-            background: 'linear-gradient(to bottom right, ' + TYPES[p.types[0]].color + ' 50%, ' + (p.types[1] ? TYPES[p.types[1]].color : TYPES[p.types[0]].color) + ' 50%)', 
+            background: p.types[1] ? ('linear-gradient(to bottom right, ' + TYPES[p.types[0]].color + ' 50%, ' + TYPES[p.types[1]].color + ' 50%)') : TYPES[p.types[0]].color, 
         }
 
-        if ((p.nom.fr + (p.forme.fr ? ' ' + p.forme.fr : '')).indexOf(this.props.searchName) === -1) {
+        if ((p.nom.fr + (p.forme.fr ? ' ' + p.forme.fr : '')).toLowerCase().indexOf(this.props.searchName.toLowerCase()) === -1) {
             return;
         }
 
         return (
-            <div className="col-2 text-center" data-numero={p.numero} data-generation={p.generation}>
+            <div className="col-2 text-center" 
+                data-numero={p.numero} 
+                data-generation={p.generation}
+                data-type1={p.types[0]}
+                data-type2={p.types[1] ?? ''}
+            >
                 <div className="border m-1" style={style}>
                     {p.nom.fr + (p.forme.fr ? ' ' + p.forme.fr : '')}
                 </div>
