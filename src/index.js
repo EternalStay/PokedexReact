@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.css';
 
-import { POKEMON } from './constantes';
+import 'bootstrap/dist/css/bootstrap.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import { SearchPokedex } from './filters.js';
 import { PokemonList } from './pokemon.js'
+import { fetchDatas } from './test.js';
+
+//import { ThreeCircles } from  'react-loader-spinner'
 
 // ========================================
 
@@ -31,7 +34,7 @@ class Pokedex extends React.Component {
             <>
                 <h1>Pokédex national</h1>
                 <SearchPokedex searchName={this.state.searchName} onFilterTextChange={this.handleFilterTextChange} />
-                <PokemonList pokemon={this.props.pokemon} searchName={this.state.searchName} />
+                <PokemonList datas={this.props.datas} searchName={this.state.searchName} />
             </>
         )
     }
@@ -40,4 +43,20 @@ class Pokedex extends React.Component {
 // ========================================
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Pokedex pokemon={POKEMON} />);
+//root.render(<ThreeCircles color="red" outerCircleColor="blue" middleCircleColor="green" innerCircleColor="grey" />)
+
+fetchDatas().then(response => {
+    const LANGUAGE = response[0];
+    const POKEMON = response[1];
+    const TYPES = response[2];
+
+    const DATAS = {
+        'language': LANGUAGE, 
+        'pokemon': POKEMON, 
+        'types': TYPES, 
+    }
+
+    console.log(DATAS);
+
+    root.render(<Pokedex datas={DATAS} />);
+});

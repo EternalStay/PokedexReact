@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { TYPES } from './constantes';
-
-import { safeurl } from './functions.js';
-
 // ========================================
 
 export class PokemonGeneration extends React.Component {
@@ -13,11 +9,12 @@ export class PokemonGeneration extends React.Component {
         const pokemon = [];
         
         this.props.pokemon.forEach((poke) => {
-            let key = safeurl(poke.nom.fr + (poke.forme.fr ? ' ' + poke.forme.fr : ''))
+            let key = poke.name;
             
             pokemon.push(
                 <Pokemon 
                     pokemon={poke} 
+                    datas={this.props.datas}
                     generation={generation} 
                     searchName={searchName} 
                     key={key}
@@ -38,16 +35,23 @@ export class PokemonGeneration extends React.Component {
 
 export class Pokemon extends React.Component {
     render() {
+        let types = this.props.datas.types;
         let p = this.props.pokemon;
         let style = {
-            background: p.types[1] ? ('linear-gradient(to bottom right, ' + TYPES[p.types[0]].color + ' 50%, ' + TYPES[p.types[1]].color + ' 50%)') : TYPES[p.types[0]].color, 
+            background: p.types[1] ? ('linear-gradient(to bottom right, ' + types[p.types[0]].color + ' 50%, ' + types[p.types[1]].color + ' 50%)') : types[p.types[0]].color, 
         }
 
-        if ((p.nom.fr + (p.forme.fr ? ' ' + p.forme.fr : '')).toLowerCase().indexOf(this.props.searchName.toLowerCase()) === -1) {
+        // Si le Pokémon possède une forme, on ne la gère pas pour le moment
+        if (!p.is_default) {
             return;
         }
 
-        return (
+        // Si le Pokémon ne correspond pas au filtre renseigné
+        if ((p.names.fr).toLowerCase().indexOf(this.props.searchName.toLowerCase()) === -1) {
+            return;
+        }
+
+        return ( 
             <div className="col-2 text-center" 
                 data-numero={p.numero} 
                 data-generation={p.generation}
@@ -55,7 +59,7 @@ export class Pokemon extends React.Component {
                 data-type2={p.types[1] ?? ''}
             >
                 <div className="border m-1" style={style}>
-                    {p.nom.fr + (p.forme.fr ? ' ' + p.forme.fr : '')}
+                  {p.names.fr}
                 </div>
             </div>
         );
@@ -67,8 +71,9 @@ export class PokemonList extends React.Component {
         const results = [];
         const pokemonByGeneration = [];
         const searchName = this.props.searchName;
+        const datas = this.props.datas;
 
-        this.props.pokemon.forEach((p) => {
+        this.props.datas.pokemon.forEach((p) => {
             if (p.generation in pokemonByGeneration === false) {
                 pokemonByGeneration[p.generation] = [];
             }
@@ -76,7 +81,7 @@ export class PokemonList extends React.Component {
         });
 
         pokemonByGeneration.forEach(function(pokemon, generation) {
-            results.push(<PokemonGeneration pokemon={pokemon} generation={generation} searchName={searchName} key={generation} />);
+            results.push(<PokemonGeneration datas={datas} pokemon={pokemon} generation={generation} searchName={searchName} key={generation} />);
         });
 
         return (
