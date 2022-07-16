@@ -21,12 +21,8 @@ export function App(props) {
     }, []);
 
     useEffect(() => {
-        const incrementCounter = () => {
-            setCounter(c => c + 1);
-        }
-        
         if (counterTotal !== 1) { 
-            fetchDatas(incrementCounter).then(response => {
+            fetchDatas(setCounter).then(response => {
                 setDatas({
                     'languages': response[0], 
                     'pokemon': response[1], 

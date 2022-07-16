@@ -17,11 +17,11 @@ export async function fetchNumber() {
     return numberRequests;
 }
 
-export async function fetchDatas(incrementCounter) {
-    return await Promise.all([fetchLanguages(incrementCounter), fetchPokemon(incrementCounter), fetchTypes(incrementCounter)]);
+export async function fetchDatas(setCounter) {
+    return await Promise.all([fetchLanguages(setCounter), fetchPokemon(setCounter), fetchTypes(setCounter)]);
 }
 
-async function fetchTypes(incrementCounter) {
+async function fetchTypes(setCounter) {
     let colorTypes = {
         'normal': '#A8A77A', 
         'fire': '#EE8130', 
@@ -49,7 +49,7 @@ async function fetchTypes(incrementCounter) {
     const responseJson = await response.json();
 
     responseJson.results.forEach(type => {
-        fetchURL(type.url, incrementCounter).then((typeData) => {
+        fetchURL(type.url, setCounter).then((typeData) => {
             types[type.name] = {
                 names: changeLanguagesArray(typeData.names), 
                 color: colorTypes[type.name], 
@@ -60,19 +60,19 @@ async function fetchTypes(incrementCounter) {
     return types;
 }
 
-async function fetchPokemon(incrementCounter) {
+async function fetchPokemon(setCounter) {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
     const responseJson = await response.json();
 
     let results = await Promise.all(responseJson.results.map(async (pokemon) => {
-        await fetchURL(pokemon.url, incrementCounter).then(async (pokemonData) => {
+        await fetchURL(pokemon.url, setCounter).then(async (pokemonData) => {
             pokemon.types = pokemonData.types.map((type) => {
                 return type.type.name;
             });
             pokemon.is_default = pokemonData.is_default;
             pokemon.sprites = pokemonData.sprites.other.home;
 
-            await fetchURL(pokemonData.species.url, incrementCounter).then((pokemonSpecies) => {
+            await fetchURL(pokemonData.species.url, setCounter).then((pokemonSpecies) => {
                 pokemon.names = changeLanguagesArray(pokemonSpecies.names);
                 pokemon.generation = parseInt(pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', ''));
             });
@@ -84,12 +84,12 @@ async function fetchPokemon(incrementCounter) {
     return results;
 }
 
-async function fetchLanguages(incrementCounter) {
+async function fetchLanguages(setCounter) {
     const response = await fetch('https://pokeapi.co/api/v2/language');
     const responseJson = await response.json();
 
     return responseJson.results.map(language => {
-        fetchURL(language.url, incrementCounter).then((languageData) => {
+        fetchURL(language.url, setCounter).then((languageData) => {
             if (languageData.names.length > 0) {
                 language.details = languageData;
             }
@@ -99,11 +99,11 @@ async function fetchLanguages(incrementCounter) {
     });
 }
 
-async function fetchURL(url, incrementCounter) {
+async function fetchURL(url, setCounter) {
     const response = await fetch(url);
     const responseJson = await response.json();
     
-    incrementCounter();
+    setCounter(c => c + 1);
 
     return responseJson;
 }

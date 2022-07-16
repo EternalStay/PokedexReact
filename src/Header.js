@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {Container, Form, Nav, Navbar} from 'react-bootstrap';
+
 // ========================================
 
 export function Header(props) {
@@ -43,24 +45,26 @@ export function Header(props) {
     </select>
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-4 px-4">
-            <a className="navbar-brand" href="#">Pokédex</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarPokedex" aria-controls="navbarPokedex" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarPokedex">
-                <ul className="navbar-nav mr-auto">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="#">Accueil</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="https://github.com/EternalStay/PokedexReact/" target="_blank" rel="noreferrer">Source</a>
-                    </li>
-                </ul>
-            </div>
-            <div> 
-                {languagesOptionsSort.length > 0 ? languagesSelect : ''}
-            </div>
-        </nav>
+        <Navbar bg="dark" expand="lg" variant="dark" className="mb-4 px-2">
+            <Container fluid>
+                <Navbar.Brand href="#">Pokédex</Navbar.Brand>
+                <Navbar.Toggle aria-controls="navbarPokedex" />
+                <Navbar.Collapse id="navbarPokedex">
+                    <Nav className="me-auto my-2 my-lg-0" navbarPokedex>
+                        <Nav.Link href="#">Accueil</Nav.Link>
+                        <Nav.Link href="https://github.com/EternalStay/PokedexReact/" target="github" rel="noreferrer">Source</Nav.Link>
+                    </Nav>
+                    {
+                        languagesOptions.length > 0 
+                        ?
+                        <Form className="d-flex">
+                            {languagesSelect}
+                        </Form>
+                        :
+                        ''
+                    }
+                </Navbar.Collapse>
+            </Container>
+        </Navbar>
     )
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Form } from 'react-bootstrap';
+
 // ========================================
 
 export class SearchPokedex extends React.Component {
@@ -18,12 +20,11 @@ export class SearchPokedex extends React.Component {
             <div className="row">
                 <div className="col-12">
                     <h2 className="mt-4">Filtres de recherche</h2>
-                    <form>
-                        <div className="form-group">
-                            <label htmlFor="searchName" />
-                            <input type="text" placeholder="Nom du Pokémon" value={this.props.filterText} onChange={this.handleFilterTextChange} />
-                        </div>
-                    </form>
+                    <Form>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Nom du Pokémon" value={this.props.filterText} onChange={this.handleFilterTextChange} />
+                        </Form.Group>
+                    </Form>
                 </div>
             </div>
         )
