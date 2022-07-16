@@ -29,7 +29,7 @@ export class Body extends React.Component {
             <React.Fragment>
                 <h1>Pokédex national</h1>
                 <SearchPokedex searchName={this.state.searchName} onFilterTextChange={this.handleFilterTextChange} />
-                <PokemonList datas={datas} searchName={this.state.searchName} /> 
+                <PokemonList datas={datas} languageSelected={this.props.languageSelected} searchName={this.state.searchName} /> 
             </React.Fragment>
         )
     }

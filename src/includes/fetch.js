@@ -90,7 +90,9 @@ async function fetchLanguages(incrementCounter) {
 
     return responseJson.results.map(language => {
         fetchURL(language.url, incrementCounter).then((languageData) => {
-            language.details = languageData;
+            if (languageData.names.length > 0) {
+                language.details = languageData;
+            }
         });
 
         return language;

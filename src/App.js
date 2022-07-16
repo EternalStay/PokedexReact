@@ -36,13 +36,18 @@ export function App(props) {
         }
     }, [counterTotal]);
 
-    
     return (
         <React.Fragment>
-            <Header languages={datas.languages} languageSelected={language} />
+            <Header languages={datas.languages} languageSelected={language} setLanguage={setLanguage} />
 
             <div className="container-fluid w-75">
-                { counterTotal > 1 && counter % counterTotal === 0 && datas.pokemon ? <Body languageSelected={language} datas={datas} /> : <ProgressBar counter={counter} counterTotal={counterTotal} /> }
+                { 
+                    counterTotal > 1 && counter % counterTotal === 0 && datas.pokemon 
+                    ? 
+                    <Body languageSelected={language} datas={datas} /> 
+                    : 
+                    <ProgressBar counter={counter} counterTotal={counterTotal} /> 
+                }
             </div>
         </React.Fragment>
     );
