@@ -8,14 +8,10 @@ import { PokemonList } from './Body/Pokemon/PokemonList.js';
 export function Body(props) {
     const [searchName, setSearchName] = useState('');
 
-    const handleFilterTextChange = searchName => {
-        setSearchName(searchName);
-    };
-
     return (
         <React.Fragment>
             <h1>Pokédex national</h1>
-            <SearchPokedex searchName={searchName} onFilterTextChange={handleFilterTextChange} />
+            <SearchPokedex searchName={searchName} setSearchName={setSearchName} />
             <PokemonList searchName={searchName} /> 
         </React.Fragment>
     )
