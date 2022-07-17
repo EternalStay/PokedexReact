@@ -45,7 +45,7 @@ export function Header(props) {
     </select>
 
     return (
-        <Navbar bg="dark" expand="lg" variant="dark" className="mb-4 px-2">
+        <Navbar bg="dark" expand="lg" variant="dark" fixed="top" className="px-2">
             <Container fluid>
                 <Navbar.Brand href="#">Pokédex</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navpokedex" />

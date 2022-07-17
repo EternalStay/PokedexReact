@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Card } from 'react-bootstrap';
+
 // ========================================
 
 export function ProgressBar(props) {
@@ -9,15 +11,15 @@ export function ProgressBar(props) {
     let style = {width: pourcent + '%'};
     
     return (
-        <div className="row">
-            <div className="col-12">
-                <h2 className="mt-4">Chargement des données...</h2>
+        <Card>
+            <Card.Header>Chargement des données...</Card.Header>
+            <Card.Body>
                 <div className="progress">
                     <div className="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow={counter} aria-valuemin="0" aria-valuemax={counterTotal} style={style}>
                         {pourcent}%
                     </div>
                 </div>
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     )
 }

@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 
+import { Card } from 'react-bootstrap';
+
 import { PokemonGeneration } from './PokemonGeneration';
 
 import { Context } from '../../App.js';
@@ -7,11 +9,12 @@ import { Context } from '../../App.js';
 // ========================================
 
 export function PokemonList(props) {
-    const results = [];
-    const pokemonByGeneration = [];
     const searchName = props.searchName;
 
     const pokemon = useContext(Context).pokemon;
+
+    const pokemonByGeneration = [];
+    const results = [];
 
     pokemon.forEach((p, index) => {
         if (!pokemonByGeneration[p.generation]) {
@@ -25,11 +28,11 @@ export function PokemonList(props) {
     });
 
     return (
-        <div className="row">
-            <div className="col-12">
-                <h2 className="mt-4">Liste des Pokémon</h2>
+        <Card>
+            <Card.Header>Liste des Pokémon</Card.Header>
+            <Card.Body>
                 {results}
-            </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 }

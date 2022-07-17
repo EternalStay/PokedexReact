@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Card, ListGroup } from 'react-bootstrap';
+
 import { Pokemon } from './Pokemon';
 
 // ========================================
@@ -23,11 +25,13 @@ export function PokemonGeneration(props) {
     });
 
     return (
-        <>
-            <h3 className="mt-3" data-generation={generation}>Génération {generation}</h3>
-            <div className="row">
-                {pokemonListing}
-            </div>
-        </>
+        <ListGroup.Item>
+            <Card.Title data-generation={generation}>Génération {generation}</Card.Title>
+            <Card.Body>
+                <div className="row g-1 g-md-2">
+                    {pokemonListing}
+                </div>
+            </Card.Body>
+        </ListGroup.Item>
     );
 }

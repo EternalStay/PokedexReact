@@ -10,7 +10,6 @@ export function Body(props) {
 
     return (
         <React.Fragment>
-            <h1>Pokédex national</h1>
             <SearchPokedex searchName={searchName} setSearchName={setSearchName} />
             <PokemonList searchName={searchName} /> 
         </React.Fragment>

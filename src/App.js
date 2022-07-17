@@ -45,7 +45,7 @@ export function App(props) {
                             counterTotal > 1 && counter % counterTotal === 0 && datas.pokemon 
                             ? 
                             <Context.Provider value={ {pokemon: datas.pokemon, types: datas.types, languageSelected: language} }>
-                                <Body languageSelected={language} datas={datas} /> 
+                                <Body languageSelected={language} /> 
                             </Context.Provider>
                             : 
                             <ProgressBar counter={counter} counterTotal={counterTotal} /> 
