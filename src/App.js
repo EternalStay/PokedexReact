@@ -8,12 +8,14 @@ import { fetchNumber, fetchDatas } from './includes/fetch';
 
 // ========================================
 
+export const Context = React.createContext();
+
 export function App(props) {
     const [language, setLanguage] = useState('fr');
     const [counter, setCounter] = useState(0);
     const [counterTotal, setCounterTotal] = useState(1);
     const [datas, setDatas] = useState({});
-
+    
     useEffect(() => {
         fetchNumber().then(response => {
             setCounterTotal(response);
@@ -42,7 +44,9 @@ export function App(props) {
                         {
                             counterTotal > 1 && counter % counterTotal === 0 && datas.pokemon 
                             ? 
-                            <Body languageSelected={language} datas={datas} /> 
+                            <Context.Provider value={ {pokemon: datas.pokemon, types: datas.types, languageSelected: language} }>
+                                <Body languageSelected={language} datas={datas} /> 
+                            </Context.Provider>
                             : 
                             <ProgressBar counter={counter} counterTotal={counterTotal} /> 
                         }

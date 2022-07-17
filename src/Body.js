@@ -1,36 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { SearchPokedex } from './Body/SearchPokedex.js';
 import { PokemonList } from './Body/Pokemon/PokemonList.js';
 
 // ========================================
 
-export class Body extends React.Component {
-    constructor(props) {
-        super(props);
+export function Body(props) {
+    const [searchName, setSearchName] = useState('');
 
-        this.state = {
-            'searchName': '', 
-        };
+    const handleFilterTextChange = searchName => {
+        setSearchName(searchName);
+    };
 
-        this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
-    }
-    
-    handleFilterTextChange(searchName) {
-        this.setState({
-            searchName: searchName, 
-        });
-    }
-
-    render() {
-        let datas = this.props.datas;
-
-        return (
-            <React.Fragment>
-                <h1>Pokédex national</h1>
-                <SearchPokedex searchName={this.state.searchName} onFilterTextChange={this.handleFilterTextChange} />
-                <PokemonList datas={datas} languageSelected={this.props.languageSelected} searchName={this.state.searchName} /> 
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+            <h1>Pokédex national</h1>
+            <SearchPokedex searchName={searchName} onFilterTextChange={handleFilterTextChange} />
+            <PokemonList searchName={searchName} /> 
+        </React.Fragment>
+    )
 }

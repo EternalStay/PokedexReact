@@ -26,7 +26,7 @@ export function Header(props) {
                 let langueActu = '';
 
                 language.details.names.forEach(function(name) {
-                    if (name.language.name === languageSelected) {
+                    if (language.name === name.language.name) {
                         langueActu = name.name;
                     }
                 });
@@ -48,9 +48,9 @@ export function Header(props) {
         <Navbar bg="dark" expand="lg" variant="dark" className="mb-4 px-2">
             <Container fluid>
                 <Navbar.Brand href="#">Pokédex</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarPokedex" />
-                <Navbar.Collapse id="navbarPokedex">
-                    <Nav className="me-auto my-2 my-lg-0" navbarPokedex>
+                <Navbar.Toggle aria-controls="navpokedex" />
+                <Navbar.Collapse id="navpokedex">
+                    <Nav className="me-auto my-2 my-lg-0">
                         <Nav.Link href="#">Accueil</Nav.Link>
                         <Nav.Link href="https://github.com/EternalStay/PokedexReact/" target="github" rel="noreferrer">Source</Nav.Link>
                     </Nav>
