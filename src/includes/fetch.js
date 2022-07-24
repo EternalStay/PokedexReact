@@ -50,10 +50,12 @@ async function fetchTypes(setCounter) {
 
     responseJson.results.forEach(type => {
         fetchURL(type.url, setCounter).then((typeData) => {
-            types[type.name] = {
-                names: changeLanguagesArray(typeData.names), 
-                color: colorTypes[type.name], 
-            };
+            if (typeData.pokemon.length > 0) {
+                types[type.name] = {
+                    names: changeLanguagesArray(typeData.names), 
+                    color: colorTypes[type.name], 
+                };
+            }
         });
     });
 
@@ -73,8 +75,8 @@ async function fetchPokemon(setCounter) {
             pokemon.sprites = pokemonData.sprites.other.home;
 
             await fetchURL(pokemonData.species.url, setCounter).then((pokemonSpecies) => {
-                pokemon.names = changeLanguagesArray(pokemonSpecies.names);
                 pokemon.generation = parseInt(pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', ''));
+                pokemon.names = changeLanguagesArray(pokemonSpecies.names);
             });
         });
 

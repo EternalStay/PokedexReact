@@ -8,20 +8,9 @@ export function Pokemon(props) {
     const types = useContext(Context).types;
     const languageSelected = useContext(Context).languageSelected;
 
-    const searchName = props.searchName;
     const pokemon = props.pokemon;
     const style = {
         background: pokemon.types[1] ? ('linear-gradient(to bottom right, ' + types[pokemon.types[0]].color + ' 50%, ' + types[pokemon.types[1]].color + ' 50%)') : types[pokemon.types[0]].color, 
-    }
-
-    // Si le Pokémon possède une forme, on ne la gère pas pour le moment
-    if (!pokemon.is_default) {
-        return;
-    }
-
-    // Si le Pokémon ne correspond pas au filtre renseigné
-    if ((languageSelected in pokemon.names ? pokemon.names[languageSelected] : '???').toLowerCase().indexOf(searchName.toLowerCase()) === -1) {
-        return;
     }
 
     return ( 
