@@ -13,13 +13,11 @@ export function PokemonGeneration(props) {
     const pokemonListing = [];
 
     pokemon.forEach((poke) => {
-        let key = poke.name;
-        
         pokemonListing.push(
             <Pokemon 
                 pokemon={poke} 
                 searchName={searchName} 
-                key={key}
+                key={'pokemon-' + poke.name}
             />
         );
     });

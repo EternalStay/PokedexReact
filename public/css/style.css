@@ -1,3 +1,15 @@
 body {
     padding-top: calc(56px + 1.5rem);
 }
+
+.bloc-pokemon {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bloc-pokemon .pokemon-name {
+    font-size: .75em;
+    font-style: italic;
+}

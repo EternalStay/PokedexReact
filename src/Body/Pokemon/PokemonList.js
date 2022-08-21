@@ -24,7 +24,7 @@ export function PokemonList(props) {
 
         // Si le Pokémon possède une forme, on ne la gère pas pour le moment
         if (!poke.is_default) {
-            showPokemon = false;
+            //showPokemon = false;
         }
 
         // Si le Pokémon ne correspond pas au filtre renseigné
@@ -33,11 +33,11 @@ export function PokemonList(props) {
         }
 
         if (showPokemon && searchTypes.length) {
-            if (searchTypeSelect === 1) {
-                showPokemon = ((searchTypes.includes(types[poke.types[0]].names['en'])) || (poke.types[1] ? searchTypes.includes(types[poke.types[1]].names['en']) : false));
+            if (parseInt(searchTypeSelect) === 1) {
+                showPokemon = ((searchTypes.includes(types.find(x => x.name === poke.types[0]).names['en'])) || (poke.types[1] ? searchTypes.includes(types.find(x => x.name === poke.types[1]).names['en']) : false));
             } else {
                 searchTypes.forEach((type, index2) => {
-                    if (showPokemon && !(type === types[poke.types[0]].names['en'] || (poke.types[1] ? type === types[poke.types[1]].names['en'] : false))) {
+                    if (showPokemon && !(type === types.find(x => x.name === poke.types[0]).names['en'] || (poke.types[1] ? type === types.find(x => x.name === poke.types[1]).names['en'] : false))) {
                         showPokemon = false;
                     }
                 });
@@ -60,7 +60,7 @@ export function PokemonList(props) {
     });
 
     pokemonByGeneration.forEach(function(poke, generation) {
-        results.push(<PokemonGeneration pokemon={poke} generation={generation} searchName={searchName} key={generation} />);
+        results.push(<PokemonGeneration pokemon={poke} generation={generation} searchName={searchName} key={'generation-' + generation} />);
     });
 
     return (

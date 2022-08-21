@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
-
-import { SearchPokedexType } from './SearchPokedexType';
-
 import { Form, Card } from 'react-bootstrap';
 
 import { Context } from '../App';
+import { SearchPokedexType } from './SearchPokedexType';
+
+import { safeurl } from '../includes/functions.js';
 
 // ========================================
 
 export function SearchPokedex(props) {
+    const languageSelected = useContext(Context).languageSelected;
     const types = useContext(Context).types;
 
     const handleChangeSearchTypeSelect = e => {
@@ -25,6 +26,7 @@ export function SearchPokedex(props) {
         }
         props.setSearchTypes(updatedList);
     };
+    types.sort((a, b) => (safeurl(a.names[languageSelected]) > safeurl(b.names[languageSelected])) ? 1 : ((safeurl(b.names[languageSelected]) > safeurl(a.names[languageSelected])) ? -1 : 0));
     Object.keys(types).forEach(function(objectKey, index) {
         let type = types[objectKey];
         typesCheckbox.push(<SearchPokedexType type={type} searchTypes={props.searchTypes} handleChange={handleCheckTypes} key={'type_' + index} />);

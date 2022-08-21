@@ -1,17 +1,31 @@
+const pokemonList = [];
+const speciesList = [];
+const countPokemonPage = 2;
+
 export async function fetchNumber() {
     let numberRequests = 0;
 
     let urls = [
-        ['https://pokeapi.co/api/v2/language', 1], 
-        ['https://pokeapi.co/api/v2/pokemon', 2], 
-        ['https://pokeapi.co/api/v2/type', 1], 
+        ['https://pokeapi.co/api/v2/language', 1, 'count'], 
+        ['https://pokeapi.co/api/v2/pokemon?limit=1000000', 2, 'count'], 
+        ['https://pokeapi.co/api/v2/type', 1, 'count'], 
     ];
 
     for (const url of urls) {
         let response = await fetch(url[0]);
         let responseJson = await response.json();
 
-        numberRequests += responseJson.count * url[1];
+        if (url[2] === 'count') {
+            numberRequests += responseJson.count * url[1];
+
+            if (url[0] === 'https://pokeapi.co/api/v2/pokemon?limit=1000000') {
+                responseJson.results.forEach((pokemon, index) => {
+                    if (!pokemonList.includes(pokemon.name)) {
+                        pokemonList.push(pokemon.name);
+                    }
+                });
+            }
+        }
     }
 
     return numberRequests;
@@ -43,7 +57,7 @@ async function fetchTypes(setCounter) {
         'fairy': '#D685AD', 
     }
 
-    let types = {};
+    let types = [];
 
     const response = await fetch('https://pokeapi.co/api/v2/type');
     const responseJson = await response.json();
@@ -51,10 +65,11 @@ async function fetchTypes(setCounter) {
     responseJson.results.forEach(type => {
         fetchURL(type.url, setCounter).then((typeData) => {
             if (typeData.pokemon.length > 0) {
-                types[type.name] = {
+                types.push({
+                    name: type.name, 
                     names: changeLanguagesArray(typeData.names), 
                     color: colorTypes[type.name], 
-                };
+                });
             }
         });
     });
@@ -63,27 +78,56 @@ async function fetchTypes(setCounter) {
 }
 
 async function fetchPokemon(setCounter) {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
+    const response = await fetch('https://pokeapi.co/api/v2/pokedex/1/');
     const responseJson = await response.json();
 
-    let results = await Promise.all(responseJson.results.map(async (pokemon) => {
-        await fetchURL(pokemon.url, setCounter).then(async (pokemonData) => {
-            pokemon.types = pokemonData.types.map((type) => {
-                return type.type.name;
-            });
-            pokemon.is_default = pokemonData.is_default;
-            pokemon.sprites = pokemonData.sprites.other.home;
+    const pokemon = [];
 
-            await fetchURL(pokemonData.species.url, setCounter).then((pokemonSpecies) => {
-                pokemon.generation = parseInt(pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', ''));
-                pokemon.names = changeLanguagesArray(pokemonSpecies.names);
-            });
+    // /pokedex
+    await Promise.all(responseJson.pokemon_entries.map(async (pokedex) => {
+
+        // /species
+        await fetchURL(pokedex.pokemon_species.url, setCounter, false).then(async (pokemonSpecies) => {
+
+            for (let pokemonVariete of pokemonSpecies.varieties) {
+                if (!speciesList.includes(pokemonVariete.pokemon.name)) {
+                    speciesList.push(pokemonVariete.pokemon.name);
+                }
+                
+                // /pokemon
+                await fetchURL(pokemonVariete.pokemon.url, setCounter).then(async (pokemonData) => {
+
+                    // /form
+                    await fetchURL(pokemonData.forms[0].url, setCounter).then(async (pokemonForm) => {
+                        let pokemonTmp = {};
+
+                        pokemonTmp.form = pokemonForm.form_names.length > 0 ? changeLanguagesArray(pokemonForm.form_names) : [];
+
+                        pokemonTmp.dex = pokedex.entry_number;
+                        pokemonTmp.name = pokemonVariete.pokemon.name;
+                        
+                        pokemonTmp.types = pokemonData.types.map((type) => {
+                            return type.type.name;
+                        });
+                        pokemonTmp.is_default = pokemonData.is_default;
+                        pokemonTmp.sprites = pokemonData.sprites.other.home;
+
+                        pokemonTmp.generation = parseInt(pokemonSpecies.generation.url.replace('https://pokeapi.co/api/v2/generation/', '').replace('/', ''));
+                        pokemonTmp.names = changeLanguagesArray(pokemonSpecies.names);
+
+                        pokemon.push(pokemonTmp);
+                    });
+                });
+            };
         });
-
-        return pokemon;
     }));
 
-    return results;
+    let difference = pokemonList.filter(x => !speciesList.includes(x));
+    console.log("Pokémon sans données : ", difference);
+    setCounter(c => c + difference.length * countPokemonPage);
+
+    pokemon.sort((a, b) => a.dex - b.dex);
+    return pokemon;
 }
 
 async function fetchLanguages(setCounter) {
@@ -101,11 +145,13 @@ async function fetchLanguages(setCounter) {
     });
 }
 
-async function fetchURL(url, setCounter) {
+async function fetchURL(url, setCounter, count = true) {
     const response = await fetch(url);
     const responseJson = await response.json();
     
-    setCounter(c => c + 1);
+    if (count) {
+        setCounter(c => c + 1);
+    }
 
     return responseJson;
 }
